@@ -2,6 +2,7 @@
 import Cadastros as cad
 import Excluir as exc
 import Listar as lis
+import Alterar as alt
 
 while True:
     print('''
@@ -30,13 +31,13 @@ while True:
     elif opcao == "1":
         cad.cadastrar_livro()
     elif opcao == "2":
-        alterar_livro()
+        alt.alterar_livro()
     elif opcao == "3":
         exc.excluir_livro()
     elif opcao == "4":
         cad.cadastrar_cliente()
     elif opcao == "5":
-        alterar_cliente()
+        alt.alterar_cliente()
     elif opcao == "6":
         exc.excluir_cliente()
     elif opcao == "7":
@@ -46,7 +47,7 @@ while True:
     elif opcao == "9":
         lis.listar_livros()
     elif opcao == "10":
-        listar_clientes()
+        lis.listar_clientes()
     elif opcao == "11":
         listar_emprestimos()
     elif opcao == "12":

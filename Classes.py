@@ -11,7 +11,7 @@ class Livro():
 class Cliente():
 
     def __init__ (self, clienteid = None, nome = None, endereco = None, cpf = None):
-        self.clienteid - clienteid
+        self.clienteid = clienteid
         self.nome = nome
         self.endereco = endereco
         self.cpf = cpf
