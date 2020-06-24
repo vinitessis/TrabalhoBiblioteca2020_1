@@ -25,17 +25,12 @@ def alterar_livro():
 
     livro = classe.Livro()
 
-    livro.titulo = input("Digite o título do livro: ")
-    livro.autor = input("Digite o autor do livro: ")
-    livro.isbn = int(input("Digite o ISBN (somente números): "))
-    livro.pgs = int(input("Digite o número de páginas do livro: "))
-    livro.quant = int(input("Digite a quantidade de livros: "))
-
     query = "UPDATE livros SET "
-    query += "titulo = '" + str(livro.titulo) + "' , "
-    query += "autor = '" + str(livro.autor) + "' , "
-    query += "isbn = '" + str(livro.isbn) + "' , "
-    query += "pgs = '" + str(livro.pgs) + "' "
+    query += "titulo = '" + str(livro.get_titulo()) + "' , "
+    query += "autor = '" + str(livro.get_autor()) + "' , "
+    query += "isbn = '" + str(livro.get_isbn()) + "' , "
+    query += "pgs = '" + str(livro.get_pgs()) + "' , "
+    query += "quant = '" + str(livro.get_quant()) + "' "
     query += "WHERE livroid= " + id
     cursor.execute(query)
 
@@ -72,14 +67,10 @@ def alterar_cliente():
 
     cliente = classe.Cliente()
 
-    cliente.nome = input("Digite o nome do cliente: ")
-    cliente.endereco = input("Digite o endereço do cliente: ")
-    cliente.cpf = input("Digite o CPF do cliente (somente números): ")
-
     query = "UPDATE clientes SET "
-    query += "nome = '" + str(cliente.nome) + "' , "
-    query += "endereco = '" + str(cliente.endereco) + "' , "
-    query += "cpf = '" + str(cliente.cpf) + "' "
+    query += "nome = '" + str(cliente.get_nome()) + "' , "
+    query += "endereco = '" + str(cliente.get_endereco()) + "' , "
+    query += "cpf = '" + str(cliente.get_cpf()) + "' "
     query += "WHERE clienteid= " + id
     cursor.execute(query)
 

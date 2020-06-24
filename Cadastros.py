@@ -10,15 +10,9 @@ def cadastrar_livro():
 
     livro = classe.Livro()
 
-    livro.titulo = input("Digite o título do livro: ")
-    livro.autor = input("Digite o autor do livro: ")
-    livro.isbn = int(input("Digite o ISBN (somente números): "))
-    livro.pgs = int(input("Digite o número de páginas do livro: "))
-    livro.quant = int(input("Digite a quantidade de livros: "))
-
     cursor = conn.cursor()
     query = "INSERT INTO livros (titulo, autor, isbn, pgs, quant) VALUES ("
-    query+= " '" + livro.titulo + "' , '" + livro.autor + "' , '" + str(livro.isbn) + "' , '" + str(livro.pgs) + "' , '" + str(livro.quant) + "' )"
+    query+= " '" + str(livro.get_titulo()) + "' , '" + str(livro.get_autor()) + "' , '" + str(livro.get_isbn()) + "' , '" + str(livro.get_pgs()) + "' , '" + str(livro.get_quant()) + "' )"
     cursor.execute(query)
     conn.commit()
 
@@ -38,13 +32,9 @@ def cadastrar_cliente():
 
     cliente = classe.Cliente()
 
-    cliente.nome = input("Digite o nome do cliente: ")
-    cliente.endereco = input("Digite o endereço do cliente: ")
-    cliente.cpf = input("Digite o CPF do cliente(somente números): ")
-
     cursor = conn.cursor()
     query = "INSERT INTO clientes (nome, endereco, cpf) VALUES ("
-    query+= " '" + cliente.nome + "' , '" + cliente.endereco + "' , '" + cliente.cpf + "' )"
+    query+= " '" + str(cliente.get_nome()) + "' , '" + str(cliente.get_endereco()) + "' , '" + str(cliente.get_cpf()) + "' )"
     cursor.execute(query)
     conn.commit()
 
