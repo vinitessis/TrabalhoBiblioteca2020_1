@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 class Livro():
 
     def __init__(self, livroid = None, titulo = None, autor = None, isbn = None, pgs = None, quant = None):
@@ -88,7 +90,7 @@ class Cliente():
         self.cpf = self.set_cpf()
 
     def get_clienteid(self):
-        return self.clienteid()
+        return self.clienteid
 
     def set_nome(self):
         nome = input("Digite o nome do cliente: ").upper()
@@ -123,15 +125,50 @@ class Cliente():
         return self.cpf
 
 class Emprestimo():
-    def __init__ (self, emprestimoid = None, livroid = None, clienteid = None):
-        self.emprestimoid = emprestimoid
-        self.livroid = Livro.get_livroid
-        self.clienteid = Cliente.get_clienteid
+    def __init__ (self):
+        self.__livroid = self.set_livroid()
+        self.__clienteid = self.set_clienteid()
+        self.__dataEmprestimo = self.set_dataEmprestimo()
+        self.__dataDevolucao = self.set_dataDevolucao()
 
-    def get_emprestimo(self):
-        return self.emprestimoid
+    def get_livroid(self):
+        return self.__livroid     
+    
+    def get_clienteid(self):
+        return self.__clienteid     
+    
+    def get_dataEmprestimo(self):
+        return self.__dataEmprestimo     
+    
+    def get_dataDevolucao(self):
+        return self.__dataDevolucao     
+    
+    def set_livroid(self):
+        try:
+            idlivro = int(input("Digite o ID do livro: "))
+            return idlivro
+        except:
+            print("Valor colocado não é um id válido!")
+
+    def set_clienteid(self):
+        try:
+            clienteid = int(input("Digite o ID do cliente: "))
+            return clienteid
+        except:
+            print("Valor colocado não é um id válido!")
+    
+    def set_dataEmprestimo(self):
+        data_atual = date.today()
+        #data = data_atual.strftime('%d/%m/%Y')
+        return data_atual
+    
+    def set_dataDevolucao(self):
+        data_atual = date.today()
+        data = data_atual + timedelta(days = 7)
+        return data
+    
 
 class Devolucao():
     def __init__ (self, devolucaoid = None, emprestimoid = None):
         self.devolucaoid = devolucaoid
-        self.emprestimoid = Emprestimo.get_emprestimo
+        self.emprestimoid = emprestimoid

@@ -41,7 +41,7 @@ while True:
     elif opcao == "6":
         exc.excluir_cliente()
     elif opcao == "7":
-        emprestimo()
+        cad.emprestimo()
     elif opcao == "8":
         devolucao()
     elif opcao == "9":
@@ -49,7 +49,7 @@ while True:
     elif opcao == "10":
         lis.listar_clientes()
     elif opcao == "11":
-        listar_emprestimos()
+        lis.listar_emprestimos()
     elif opcao == "12":
         listar_devolucoes()
     else:
