@@ -129,9 +129,10 @@ class Cliente():
 class Emprestimo():
     def __init__ (self):
         self.__livroid = self.set_livroid()
-        self.__clienteid = self.set_clienteid()
-        self.__dataEmprestimo = self.set_dataEmprestimo()
-        self.__dataDevolucao = self.set_dataDevolucao()
+        if self.__livroid > 0:
+            self.__clienteid = self.set_clienteid()
+            self.__dataEmprestimo = self.set_dataEmprestimo()
+            self.__dataDevolucao = self.set_dataDevolucao()
 
     def get_livroid(self):
         return self.__livroid     
@@ -149,11 +150,17 @@ class Emprestimo():
         while True:
             try:
                 descricao = input("Digite o nome do livro ou do autor: ").upper()
-                idlivros = pesquisa.pesquisa_livros(descricao)
+                idlivros, quant = pesquisa.pesquisa_livros(descricao)
                 idlivro = int(input("\n\n\nDigite o ID do livro escolhido: "))
-                print(idlivros)
                 if idlivro in idlivros:
-                    return idlivro
+                    indice = idlivros.index(idlivro)
+                    if quant[indice] > 0:
+                        return idlivro
+                    else:
+                        print("=" * 50)
+                        print("Esse livro não está disponível no momento!")
+                        print("=" * 50)
+                        return 0
                 else:
                     print("Livro não cadastrado!")
             except:
@@ -165,10 +172,11 @@ class Emprestimo():
             idclientes = pesquisa.pesquisa_clientes(descricao)
             idcliente = int(input("\n\n\nDigite o ID do cliente escolhido: "))
             if idcliente in idclientes:
+                print(idcliente)
                 return idcliente
             else:
                 print("=" * 24)
-                print("Cliente não cadastrado!")
+                print("Cliente não encontrado!")
                 print("=" * 24)
             try:
                 pass

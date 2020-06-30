@@ -50,16 +50,13 @@ def emprestimo():
     print("=" * 19)
 
     emprestimo = classe.Emprestimo()
-    livro = str(emprestimo.get_livroid())
+    livro = emprestimo.get_livroid()
+    if livro == 0:
+        return 0
 
     conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
-
-    # query = "SELECT quantdisponivel FROM livros" 
-    # query+= "WHERE livroid = " + str(emprestimo.get_livroid())
-    # result = cursor.fetchall()
-    # print(result)
-    # cursor.execute(query)
+   
 
     query = "INSERT INTO emprestimo (livroid, clienteid, dataEmprestimo, DataDevolucao) VALUES ("
     query+= " '" + str(emprestimo.get_livroid()) + "' , '" + str(emprestimo.get_clienteid()) + "' , '" + str(emprestimo.get_dataEmprestimo()) + "' , '" + str(emprestimo.get_dataDevolucao()) + "' )"
