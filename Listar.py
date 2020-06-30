@@ -7,7 +7,6 @@ def listar_livros():
     conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM livros")
-    result = cursor.fetchall()
 
     print("=" * 197)
     print("Relatório de Livros".center(197," "))
@@ -44,11 +43,11 @@ def listar_emprestimos():
     cursor.execute('''SELECT emprestimoid, titulo, autor, nome, dataEmprestimo, DataDevolucao
                       FROM emprestimo, livros, clientes
                       WHERE clientes.clienteid = emprestimo.clienteid and
-                            livros.livroid = emprestimo.livroid          
+                            livros.livroid = emprestimo.livroid
+                      ORDER BY emprestimoid          
     ''')
 
     result = cursor.fetchall()
-
     print("=" * 207)
     print("Relatório de Emprestimos".center(173," "))
     print("=" * 207)

@@ -151,7 +151,10 @@ class Emprestimo():
             try:
                 descricao = input("Digite o nome do livro ou do autor: ").upper()
                 idlivros, quant = pesquisa.pesquisa_livros(descricao)
-                idlivro = int(input("\n\n\nDigite o ID do livro escolhido: "))
+                if len(idlivros) > 1:
+                    idlivro = int(input("\n\n\nDigite o ID do livro escolhido: "))
+                else: 
+                    idlivro = idlivros[0]
                 if idlivro in idlivros:
                     indice = idlivros.index(idlivro)
                     if quant[indice] > 0:
@@ -170,7 +173,10 @@ class Emprestimo():
          while True:
             descricao = input("Digite o nome do cliente ou do CPF: ").upper()
             idclientes = pesquisa.pesquisa_clientes(descricao)
-            idcliente = int(input("\n\n\nDigite o ID do cliente escolhido: "))
+            if len(idclientes) > 1:
+                idcliente = int(input("\n\n\nDigite o ID do cliente escolhido: "))
+            else:
+                idcliente = idclientes[0]
             if idcliente in idclientes:
                 print(idcliente)
                 return idcliente

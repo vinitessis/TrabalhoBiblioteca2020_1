@@ -42,7 +42,6 @@ while True:
         exc.excluir_cliente()
     elif opcao == "7":
         cad.emprestimo()
-    elif opcao == "8":
         devolucao()
     elif opcao == "9":
         lis.listar_livros()
