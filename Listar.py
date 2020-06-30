@@ -7,7 +7,7 @@ def listar_livros():
     conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM livros")
-
+    result = cursor.fetchall()
     print("=" * 197)
     print("Relatório de Livros".center(197," "))
     print("=" * 197)
