@@ -1,7 +1,6 @@
 import mysql.connector
 import Classes as classe
 
-conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
 
 def cadastrar_livro():
     print("=" * 17)
@@ -10,6 +9,7 @@ def cadastrar_livro():
 
     livro = classe.Livro()
 
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
     query = "INSERT INTO livros (titulo, autor, isbn, pgs, quanttotal, quantdisponivel) VALUES ("
     query+= " '" + str(livro.get_titulo()) + "' , '" + str(livro.get_autor()) + "' , '" + str(livro.get_isbn()) + "' , '" + str(livro.get_pgs()) + "' , '" + str(livro.get_quant()) + "' , '" + str(livro.get_quant()) + "' )"
@@ -30,6 +30,7 @@ def cadastrar_cliente():
 
     cliente = classe.Cliente()
 
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
     query = "INSERT INTO clientes (nome, endereco, cpf) VALUES ("
     query+= " '" + str(cliente.get_nome()) + "' , '" + str(cliente.get_endereco()) + "' , '" + str(cliente.get_cpf()) + "' )"
@@ -50,7 +51,16 @@ def emprestimo():
 
     emprestimo = classe.Emprestimo()
     livro = str(emprestimo.get_livroid())
+
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
+
+    # query = "SELECT quantdisponivel FROM livros" 
+    # query+= "WHERE livroid = " + str(emprestimo.get_livroid())
+    # result = cursor.fetchall()
+    # print(result)
+    # cursor.execute(query)
+
     query = "INSERT INTO emprestimo (livroid, clienteid, dataEmprestimo, DataDevolucao) VALUES ("
     query+= " '" + str(emprestimo.get_livroid()) + "' , '" + str(emprestimo.get_clienteid()) + "' , '" + str(emprestimo.get_dataEmprestimo()) + "' , '" + str(emprestimo.get_dataDevolucao()) + "' )"
     cursor.execute(query)

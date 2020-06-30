@@ -1,3 +1,4 @@
+import Pesquisa as pesquisa
 from datetime import date, timedelta
 
 class Livro():
@@ -109,12 +110,13 @@ class Cliente():
     def set_cpf(self):
         while True:
             try:
-                cpf = int(input("Digite o CPF do cliente (somente números): "))
-                if (cpf > 0) and (cpf < 99999999999):
+                cpf = input("Digite o CPF do cliente (somente números): ")
+                cpfint = int(cpf)
+                if len(cpf) == 11:
                     return cpf
                 else:
                     print("=" * 24)
-                    print("Número de CPF inválido!")
+                    print("Número de CPF inválido1!")
                     print("=" * 24)
             except:
                 print("=" * 24)
@@ -144,22 +146,39 @@ class Emprestimo():
         return self.__dataDevolucao     
     
     def set_livroid(self):
-        try:
-            idlivro = int(input("Digite o ID do livro: "))
-            return idlivro
-        except:
-            print("Valor colocado não é um id válido!")
+        while True:
+            try:
+                descricao = input("Digite o nome do livro ou do autor: ").upper()
+                idlivros = pesquisa.pesquisa_livros(descricao)
+                idlivro = int(input("\n\n\nDigite o ID do livro escolhido: "))
+                print(idlivros)
+                if idlivro in idlivros:
+                    return idlivro
+                else:
+                    print("Livro não cadastrado!")
+            except:
+                print("Valor colocado não é um id válido!")
 
     def set_clienteid(self):
-        try:
-            clienteid = int(input("Digite o ID do cliente: "))
-            return clienteid
-        except:
-            print("Valor colocado não é um id válido!")
+         while True:
+            descricao = input("Digite o nome do cliente ou do CPF: ").upper()
+            idclientes = pesquisa.pesquisa_clientes(descricao)
+            idcliente = int(input("\n\n\nDigite o ID do cliente escolhido: "))
+            if idcliente in idclientes:
+                return idcliente
+            else:
+                print("=" * 24)
+                print("Cliente não cadastrado!")
+                print("=" * 24)
+            try:
+                pass
+            except:
+                print("=" * 24)
+                print("Valor colocado não é um id válido!")
+                print("=" * 24)
     
     def set_dataEmprestimo(self):
         data_atual = date.today()
-        #data = data_atual.strftime('%d/%m/%Y')
         return data_atual
     
     def set_dataDevolucao(self):

@@ -1,13 +1,12 @@
 import mysql.connector
 from datetime import date
 
-conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
 
 def listar_livros():
+
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
-
     cursor.execute("SELECT * FROM livros")
-
     result = cursor.fetchall()
 
     print("=" * 207)
@@ -21,10 +20,10 @@ def listar_livros():
     conn.close()
 
 def listar_clientes():
+    
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
-
     cursor.execute("SELECT * FROM clientes")
-
     result = cursor.fetchall()
 
     print("=" * 136)
@@ -39,8 +38,9 @@ def listar_clientes():
 
 
 def listar_emprestimos():
+    
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
     cursor = conn.cursor()
-
     cursor.execute('''SELECT emprestimoid, titulo, autor, nome, dataEmprestimo, DataDevolucao
                       FROM emprestimo, livros, clientes
                       WHERE clientes.clienteid = emprestimo.clienteid and
