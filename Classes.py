@@ -148,26 +148,26 @@ class Emprestimo():
     
     def set_livroid(self):
         while True:
-            try:
-                descricao = input("Digite o nome do livro ou do autor: ").upper()
-                idlivros, quant = pesquisa.pesquisa_livros(descricao)
-                if len(idlivros) > 1:
-                    idlivro = int(input("\n\n\nDigite o ID do livro escolhido: "))
-                else: 
-                    idlivro = idlivros[0]
-                if idlivro in idlivros:
-                    indice = idlivros.index(idlivro)
-                    if quant[indice] > 0:
-                        return idlivro
-                    else:
-                        print("=" * 50)
-                        print("Esse livro não está disponível no momento!")
-                        print("=" * 50)
-                        return 0
+            #try: 
+            descricao = input("Digite o nome do livro, do autor ou o ISBN: ").upper()
+            idlivros, quant = pesquisa.pesquisa_livros(descricao)
+            if len(idlivros) > 1:
+                idlivro = int(input("\n\n\nDigite o ID do livro escolhido: "))
+            else: 
+                idlivro = idlivros[0]
+            if idlivro in idlivros:
+                indice = idlivros.index(idlivro)
+                if quant[indice] > 0:
+                    return idlivro
                 else:
-                    print("Livro não cadastrado!")
-            except:
-                print("Valor colocado não é um id válido!")
+                    print("=" * 50)
+                    print("Esse livro não está disponível no momento!")
+                    print("=" * 50)
+                    return 0
+            else:
+                print("Livro não cadastrado!")
+           # except:
+               # print("Valor colocado não é um id válido!")
 
     def set_clienteid(self):
          while True:
@@ -225,13 +225,14 @@ class Devolucao():
 
     def set_emprestimoid(self):
         while True:
-            descricao = input("Digite o nome do livro ou do autor: ").upper()
+            descricao = input("Digite o nome do livro, do autor ou o ISBN: ").upper()
             idlivros, quant = pesquisa.pesquisa_livros(descricao)
             if len(idlivros) > 1:
                 idlivro = int(input("\n\n\nDigite o ID do livro: "))
             else: 
                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                 idlivro = idlivros[0]
+                print(idlivro)
             if idlivro in idlivros:
                 emprestimosid, livrosid, dataEntrega = pesquisa.pesquisa_emprestimo(idlivro)
                 if len(emprestimosid) > 1:

@@ -1,17 +1,19 @@
 import mysql.connector
 from datetime import date
+from Conexao import Conexao
 
 def pesquisa_livros(descricao):
     idlivros = []
     quant = []
     
-    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
-    cursor = conn.cursor()
+    banco = Conexao()
+    
     query = "SELECT livroid, titulo, autor, quantdisponivel FROM livros WHERE titulo like '%"
     query += str(descricao) + "%' or autor like '%"
+    query += str(descricao) + "%' or isbn like '% "
     query += str(descricao) + "%'"
-    cursor.execute(query)
-    result = cursor.fetchall()
+    result = banco.mostrar(query)
+  
 
     print("=" * 140)
     print("Livros".center(140," "))
@@ -21,22 +23,19 @@ def pesquisa_livros(descricao):
         print("|", str(livro[0]).center(8," "), "|", str(livro[1]).center(50," "), "|", str(livro[2]).center(50," "), "|", str(livro[3]).center(22," "), "|")
         idlivros.append(livro[0])
         quant.append(livro[3])
-    cursor.close()
-    conn.close()
+    banco.fechar()
     return idlivros, quant
 
 
 def pesquisa_clientes(descricao):
     idclientes = []
 
-    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
-
-    cursor = conn.cursor()
+    banco = Conexao()
+    
     query = "SELECT clienteid, nome, cpf FROM clientes WHERE nome like '%"
     query += str(descricao) + "%' or cpf like '%"
     query += str(descricao) + "%'"
-    cursor.execute(query)
-    result = cursor.fetchall()
+    result = banco.mostrar(query)
  
     print("=" * 83)
     print("Livros".center(83," "))
@@ -45,32 +44,41 @@ def pesquisa_clientes(descricao):
     for livro in result:
         print("|", str(livro[0]).center(8," "), "|", str(livro[1]).center(50," "), "|", str(livro[2]).center(15," "), "|")
         idclientes.append(livro[0])
-    cursor.close()
-    conn.close()
+    banco.fechar()
+    
     return idclientes
 
 def pesquisa_emprestimo(idlivro):
     emprestimosid = []
     dataEntrega = []
     livrosid = []
-
-    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
-
-    cursor = conn.cursor()
-    query = '''SELECT DISTINCT emp.emprestimoid, liv.livroid, liv.titulo, liv.autor, cli.nome, emp.dataEmprestimo, emp.DataDevolucao 
+    print(idlivro)
+    banco = Conexao()
+    
+    res = banco.mostrar("SELECT * FROM devolucao")
+    if len(res) == 0:
+        query = '''SELECT DISTINCT emp.emprestimoid, liv.livroid, liv.titulo, liv.autor, cli.nome, emp.dataEmprestimo, emp.DataDevolucao 
+               FROM emprestimo as emp, livros as liv, clientes as cli
+               WHERE cli.clienteid = emp.clienteid and 
+                     liv.livroid = emp.livroid and
+                     liv.livroid =         
+            '''
+        query += str(idlivro)
+    
+    else:
+        query = '''SELECT DISTINCT emp.emprestimoid, liv.livroid, liv.titulo, liv.autor, cli.nome, emp.dataEmprestimo, emp.DataDevolucao 
                FROM emprestimo as emp, livros as liv, clientes as cli, devolucao as dev
                WHERE cli.clienteid = emp.clienteid and 
                      liv.livroid = emp.livroid and
                      liv.livroid =         
-    '''
-    query += str(idlivro)
-    query+= ''' and 
+        '''
+        query += str(idlivro)            
+        query+= ''' and 
                 emp.emprestimoid not in
                         (SELECT dev.emprestimoid from devolucao as dev)
                 ORDER BY emp.emprestimoid '''
-    cursor.execute(query)
-    result = cursor.fetchall()
-
+    
+    result = banco.mostrar(query)
     print("=" * 207)
     print("Relatório de Emprestimos".center(173," "))
     print("=" * 207)
