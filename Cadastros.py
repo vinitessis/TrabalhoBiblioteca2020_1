@@ -74,3 +74,46 @@ def emprestimo():
     print("=" * 19)
     print("Emprestimo realizado com sucesso")
     print("=" * 19)
+
+
+def devolucao():
+    dev = classe.Devolucao()
+
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
+    cursor = conn.cursor()
+   
+    multa = dev.get_multa()
+    paga = 'S'
+    if multa > 0:
+        paga = 'N'
+        print("\n\n\n\n" + "=" * 19)
+        print("O valor da multa foi: {}" .format('R$ ' + f'{multa:.2f}'.replace('.', ',')))
+        print("\n\n\n\n" + "=" * 19)
+        while True:
+            paga = input("O Valor foi pago? [S/N]: ")
+            paga = paga.upper()
+            if paga == 'S':
+                paga = 'S'
+                break
+            elif paga == 'N':
+                break
+            else:
+                print("\n\n\nDigite apenas [S/N]\n\n\n")
+
+    if paga == 'S':
+        query = "INSERT INTO devolucao (emprestimoid, dataEntregue, multa) VALUES ("
+        query+= " '" + str(dev.get_emprestimoid()) + "' , '" + str(dev.get_dataEntregue()) + "' , '" + str(dev.get_multa()) + "' )"
+        cursor.execute(query)
+        conn.commit()
+
+        query = "UPDATE livros SET quantdisponivel = quantdisponivel + '1'" 
+        query+= "WHERE livroid = " + str(dev.get_livroid())
+        cursor.execute(query)
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        print("=" * 19)
+        print("Devolução concluída")
+        print("=" * 19)

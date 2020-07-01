@@ -202,6 +202,59 @@ class Emprestimo():
     
 
 class Devolucao():
-    def __init__ (self, devolucaoid = None, emprestimoid = None):
-        self.devolucaoid = devolucaoid
-        self.emprestimoid = emprestimoid
+    def __init__ (self):
+        self.__emprestimoid, self.__livroid, self.__dataEntrega = self.set_emprestimoid()
+        self.__dataEntregue = self.set_dataEntregue()
+        self.__multa = self.set_multa()
+
+
+    def get_emprestimoid(self):
+        return self.__emprestimoid
+
+    def get_livroid(self):
+        return self.__livroid
+    
+    def get_dataEntrega(self):
+        return self.__dataEntrega
+
+    def get_dataEntregue(self):
+        return self.__dataEntregue
+
+    def get_multa(self):
+        return self.__multa
+
+    def set_emprestimoid(self):
+        while True:
+            descricao = input("Digite o nome do livro ou do autor: ").upper()
+            idlivros, quant = pesquisa.pesquisa_livros(descricao)
+            if len(idlivros) > 1:
+                idlivro = int(input("\n\n\nDigite o ID do livro: "))
+            else: 
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                idlivro = idlivros[0]
+            if idlivro in idlivros:
+                emprestimosid, livrosid, dataEntrega = pesquisa.pesquisa_emprestimo(idlivro)
+                if len(emprestimosid) > 1:
+                    emprestimoid = int(input("Digite o ID do empréstimo a ser devolvido: "))
+                else:
+                    emprestimoid = emprestimosid[0]
+                if emprestimoid in emprestimosid:
+                    indice = emprestimosid.index(emprestimoid)
+                    return emprestimoid, livrosid[indice], dataEntrega[indice]
+            else:
+                print("Livro não cadastrado!")
+            try:
+                pass
+            except:
+                print("Valor colocado não é um id válido!")
+
+    def set_dataEntregue(self):
+        data_atual = date.today()
+        return data_atual
+
+    def set_multa(self):
+        if self.__dataEntregue > self.__dataEntrega:
+            quantidadeDias = abs((self.__dataEntregue - self.__dataEntrega).days)
+            return quantidadeDias
+        else:
+            return 0

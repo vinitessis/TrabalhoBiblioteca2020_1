@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import date
 
 def pesquisa_livros(descricao):
     idlivros = []
@@ -47,3 +48,36 @@ def pesquisa_clientes(descricao):
     cursor.close()
     conn.close()
     return idclientes
+
+def pesquisa_emprestimo(idlivro):
+    emprestimosid = []
+    dataEntrega = []
+    livrosid = []
+
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
+
+    cursor = conn.cursor()
+    query = '''SELECT DISTINCT emp.emprestimoid, liv.livroid, liv.titulo, liv.autor, cli.nome, emp.dataEmprestimo, emp.DataDevolucao 
+               FROM emprestimo as emp, livros as liv, clientes as cli, devolucao as dev
+               WHERE cli.clienteid = emp.clienteid and 
+                     liv.livroid = emp.livroid and
+                     liv.livroid =         
+    '''
+    query += str(idlivro)
+    query+= ''' and 
+                emp.emprestimoid not in
+                        (SELECT dev.emprestimoid from devolucao as dev)
+                ORDER BY emp.emprestimoid '''
+    cursor.execute(query)
+    result = cursor.fetchall()
+
+    print("=" * 207)
+    print("Relatório de Emprestimos".center(173," "))
+    print("=" * 207)
+    print("|", "ID".center(8," "), "|", "Título".center(40," "), "|", "Autor".center(40," "), "|", "NOME".center(50," "), "|", "Data do empréstimo".center(20," "), "|", "Data da Devolução".center(20," "), "|")
+    for emprestimo in result:
+        print("|", str(emprestimo[0]).center(8," "), "|", str(emprestimo[2]).center(40," "), "|", str(emprestimo[3]).center(40," "), "|", str(emprestimo[4]).center(50," "), "|", str(date.strftime(emprestimo[5], '%d/%m/%Y')).center(20," "), "|", str(date.strftime(emprestimo[6], '%d/%m/%Y')).center(20," "), "|")
+        emprestimosid.append(emprestimo[0])
+        livrosid.append(emprestimo[1])
+        dataEntrega.append(emprestimo[6])
+    return emprestimosid, livrosid, dataEntrega

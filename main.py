@@ -42,7 +42,8 @@ while True:
         exc.excluir_cliente()
     elif opcao == "7":
         cad.emprestimo()
-        devolucao()
+    elif opcao == "8":
+        cad.devolucao()
     elif opcao == "9":
         lis.listar_livros()
     elif opcao == "10":
@@ -50,7 +51,7 @@ while True:
     elif opcao == "11":
         lis.listar_emprestimos()
     elif opcao == "12":
-        listar_devolucoes()
+        lis.listar_devolucoes()
     else:
         print("=" * 24)
         print("Valor inválido!")
