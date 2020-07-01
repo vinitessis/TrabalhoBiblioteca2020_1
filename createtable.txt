@@ -1,7 +1,7 @@
 CREATE TABLE livros (livroid INT NOT NULL AUTO_INCREMENT , titulo VARCHAR(50) NOT NULL, autor VARCHAR(50) NOT NULL, isbn BIGINT(13) NOT NULL, pgs INT NOT NULL, quanttotal INT NOT NULL, quantdisponivel INT NOT NULL, PRIMARY KEY (livroid))
 
-CREATE TABLE clientes (clienteid INT NOT NULL AUTO_INCREMENT , nome VARCHAR(50) NOT NULL, endereco VARCHAR(50) NOT NULL, cpf BIGINT(11) NOT NULL, PRIMARY KEY (clienteid))
+CREATE TABLE clientes (clienteid INT NOT NULL AUTO_INCREMENT , nome VARCHAR(50) NOT NULL, endereco VARCHAR(50) NOT NULL, cpf VARCHAR(11) NOT NULL, PRIMARY KEY (clienteid))
 
 CREATE TABLE emprestimo (emprestimoid INT NOT NULL AUTO_INCREMENT , livroid INT NOT NULL, clienteid INT NOT NULL, dataEmprestimo DATE NOT NULL, DataDevolucao DATE NOT NULL, PRIMARY KEY (emprestimoid), FOREIGN KEY (livroid) REFERENCES livros(livroid), FOREIGN KEY (clienteid) REFERENCES clientes(clienteid))
 
-CREATE TABLE devolucao (devolucaoid INT NOT NULL AUTO_INCREMENT , emprestimoid INT NOT NULL, dataEntregue DATE NOT NULL, FOREIGN KEY (emprestimoid) REFERENCES emprestimo(emprestimoid))
+CREATE TABLE devolucao (devolucaoid INT NOT NULL AUTO_INCREMENT , emprestimoid INT NOT NULL, dataEntregue DATE NOT NULL, multa FLOAT NOT NULL, FOREIGN KEY (emprestimoid) REFERENCES emprestimo(emprestimoid))

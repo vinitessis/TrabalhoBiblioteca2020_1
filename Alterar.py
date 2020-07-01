@@ -30,7 +30,8 @@ def alterar_livro():
     query += "autor = '" + str(livro.get_autor()) + "' , "
     query += "isbn = '" + str(livro.get_isbn()) + "' , "
     query += "pgs = '" + str(livro.get_pgs()) + "' , "
-    query += "quant = '" + str(livro.get_quant()) + "' "
+    query += "quanttotal = '" + str(livro.get_quant()) + "' , "
+    query += "quantdisponivel = '" + str(livro.get_quant()) + "' "
     query += "WHERE livroid= " + id
     cursor.execute(query)
 
