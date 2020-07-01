@@ -1,14 +1,12 @@
 import mysql.connector
 import Classes as classe
+from Conexao import Conexao
 
 def alterar_livro():
-    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
+    
+    banco = Conexao()
+    result = banco.mostrar("SELECT * FROM livros")
 
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM livros")
-
-    result = cursor.fetchall()
 
     print("=" * 17)
     print("Alteração de Livro")
@@ -24,6 +22,15 @@ def alterar_livro():
     id = input("Informe o id do livro que você quer alterar: ")
 
     livro = classe.Livro()
+    while True:
+        try:
+            quantdisponivel = int(input("Informe a quantidade disponível: "))
+        except:
+            print("=" * 24)
+            print("Valor inválido!")
+            print("=" * 24)
+        break
+        
 
     query = "UPDATE livros SET "
     query += "titulo = '" + str(livro.get_titulo()) + "' , "
@@ -31,27 +38,21 @@ def alterar_livro():
     query += "isbn = '" + str(livro.get_isbn()) + "' , "
     query += "pgs = '" + str(livro.get_pgs()) + "' , "
     query += "quanttotal = '" + str(livro.get_quant()) + "' , "
-    query += "quantdisponivel = '" + str(livro.get_quant()) + "' "
+    query += "quantdisponivel = '" + str(quantdisponivel) + "' "
     query += "WHERE livroid= " + id
-    cursor.execute(query)
+    banco.executar(query)
 
-    conn.commit()
-
-    cursor.close()
-    conn.close()
+    banco.fechar()
 
     print("=" * 28)
     print("Livro Atualizado com sucesso")
     print("=" * 28)
 
 def alterar_cliente():
-    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
+    
+    banco = Conexao()
+    result = banco.mostrar("SELECT * FROM clientes")
 
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM clientes")
-
-    result = cursor.fetchall()
 
     print("=" * 19)
     print("Alteração de Cliente")
@@ -73,12 +74,8 @@ def alterar_cliente():
     query += "endereco = '" + str(cliente.get_endereco()) + "' , "
     query += "cpf = '" + str(cliente.get_cpf()) + "' "
     query += "WHERE clienteid= " + id
-    cursor.execute(query)
-
-    conn.commit()
-
-    cursor.close()
-    conn.close()
+    banco.executar(query)
+    banco.fechar()
 
     print("=" * 30)
     print("Cliente Atualizado com sucesso")

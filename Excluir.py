@@ -1,12 +1,11 @@
 import mysql.connector
+from Conexao import Conexao
 
 def excluir_livro():
-    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
-    cursor = conn.cursor()
+    
+    banco = Conexao()
+    result = banco.mostrar("SELECT * FROM livros")
 
-    cursor.execute("SELECT * FROM livros")
-
-    result = cursor.fetchall()
     print("=" * 13)
     print("Excluir Livro")
     print("=" * 13)
@@ -20,25 +19,20 @@ def excluir_livro():
 
     id = input("Informe o id do livro que você quer excluir: ")
 
-    cursor.execute("DELETE FROM livros WHERE livroid= " + id)
-
-    conn.commit()
+    banco.executar("DELETE FROM livros WHERE livroid= " + id)
 
     print("=" * 27)
     print("Livro Excluído com Sucesso!")
     print("=" * 27)
 
-    cursor.close()
-    conn.close()
+    banco.fechar()
 
 def excluir_cliente():
-    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
+    
+    banco = Conexao()
 
-    cursor = conn.cursor()
+    result =banco.mostrar("SELECT * FROM clientes")
 
-    cursor.execute("SELECT * FROM clientes")
-
-    result = cursor.fetchall()
     print("=" * 15)
     print("Excluir Cliente")
     print("=" * 15)
@@ -52,14 +46,11 @@ def excluir_cliente():
 
     id = input("Informe o id do cliente que você quer excluir: ")
 
-    cursor.execute("DELETE FROM clientes WHERE clienteid= " + id)
-
-    conn.commit()
+    banco.executar("DELETE FROM clientes WHERE clienteid= " + id)
 
     print("=" * 29)
     print("Cliente Excluído com Sucesso!")
     print("=" * 29)
 
-    cursor.close()
-    conn.close()
+    banco.fechar()
 

@@ -151,6 +151,11 @@ class Emprestimo():
             #try: 
             descricao = input("Digite o nome do livro, do autor ou o ISBN: ").upper()
             idlivros, quant = pesquisa.pesquisa_livros(descricao)
+            if len(idlivros) == 0:
+                print("=" * 50)
+                print("Livro não encontrado!")
+                print("=" * 50)
+                continue
             if len(idlivros) > 1:
                 idlivro = int(input("\n\n\nDigite o ID do livro escolhido: "))
             else: 
@@ -173,7 +178,14 @@ class Emprestimo():
          while True:
             descricao = input("Digite o nome do cliente ou do CPF: ").upper()
             idclientes = pesquisa.pesquisa_clientes(descricao)
-            if len(idclientes) > 1:
+            
+            if len(idclientes) == 0:
+                print("=" * 50)
+                print("Cliente não encontrado!")
+                print("=" * 50)
+                continue           
+            
+            elif len(idclientes) > 1:
                 idcliente = int(input("\n\n\nDigite o ID do cliente escolhido: "))
             else:
                 idcliente = idclientes[0]
@@ -227,13 +239,27 @@ class Devolucao():
         while True:
             descricao = input("Digite o nome do livro, do autor ou o ISBN: ").upper()
             idlivros, quant = pesquisa.pesquisa_livros(descricao)
-            if len(idlivros) > 1:
+            
+            if len(idlivros) == 0:
+                print("=" * 50)
+                print("Livro não encontrado!")
+                print("=" * 50)
+                continue
+            
+            elif len(idlivros) > 1:
                 idlivro = int(input("\n\n\nDigite o ID do livro: "))
             else: 
                 idlivro = idlivros[0]     
             if idlivro in idlivros:
                 emprestimosid, livrosid, dataEntrega = pesquisa.pesquisa_emprestimo(idlivro)
-                if len(emprestimosid) > 1:
+                
+                if len(emprestimosid) == 0:
+                    print("=" * 50)
+                    print("empréstimo não encontrado!")
+                    print("=" * 50)
+                    continue
+                
+                elif len(emprestimosid) > 1:
                     emprestimoid = int(input("Digite o ID do empréstimo a ser devolvido: "))
                 else:
                     emprestimoid = emprestimosid[0]
