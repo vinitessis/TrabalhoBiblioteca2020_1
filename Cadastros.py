@@ -61,9 +61,9 @@ def emprestimo():
     banco.fechar()
 
 
-    print("=" * 19)
+    print("=" * 32)
     print("Emprestimo realizado com sucesso")
-    print("=" * 19)
+    print("=" * 32)
 
 
 def devolucao():

@@ -230,9 +230,7 @@ class Devolucao():
             if len(idlivros) > 1:
                 idlivro = int(input("\n\n\nDigite o ID do livro: "))
             else: 
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                idlivro = idlivros[0]
-                print(idlivro)
+                idlivro = idlivros[0]     
             if idlivro in idlivros:
                 emprestimosid, livrosid, dataEntrega = pesquisa.pesquisa_emprestimo(idlivro)
                 if len(emprestimosid) > 1:
