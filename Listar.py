@@ -48,12 +48,37 @@ def listar_emprestimos():
     ''')
 
     result = cursor.fetchall()
-    print("=" * 207)
-    print("Relatório de Emprestimos".center(173," "))
-    print("=" * 207)
-    print("|", "ID".center(8," "), "|", "Título".center(40," "), "|", "Autor".center(40," "), "|", "NOME".center(50," "), "|", "Data do empréstimo".center(20," "), "|", "Data da Devolução".center(20," "), "|")
+    print("=" * 197)
+    print("Relatório de Emprestimos".center(197," "))
+    print("=" * 197)
+    print("|", "ID".center(8," "), "|", "Título".center(40," "), "|", "Autor".center(40," "), "|", "NOME".center(40," "), "|", "Data do empréstimo".center(20," "), "|", "Data da Devolução".center(20," "), "|")
     for emprestimo in result:
-        print("|", str(emprestimo[0]).center(8," "), "|", str(emprestimo[1]).center(40," "), "|", str(emprestimo[2]).center(40," "), "|", str(emprestimo[3]).center(50," "), "|", str(date.strftime(emprestimo[4], '%d/%m/%Y')).center(20," "), "|", str(date.strftime(emprestimo[5], '%d/%m/%Y')).center(20," "), "|")
+        print("|", str(emprestimo[0]).center(8," "), "|", str(emprestimo[1]).center(40," "), "|", str(emprestimo[2]).center(40," "), "|", str(emprestimo[3]).center(40," "), "|", str(date.strftime(emprestimo[4], '%d/%m/%Y')).center(20," "), "|", str(date.strftime(emprestimo[5], '%d/%m/%Y')).center(20," "), "|")
+
+    
+    cursor.close()
+    conn.close()
+
+
+def listar_devolucoes():
+    
+    conn = mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
+    cursor = conn.cursor()
+    cursor.execute('''SELECT dev.devolucaoid, liv.titulo, liv.autor, cli.nome, emp.dataEmprestimo, emp.DataDevolucao, dev.dataEntregue, multa
+                      FROM emprestimo as emp, livros as liv, clientes as cli, devolucao as dev
+                      WHERE cli.clienteid = emp.clienteid and
+                            liv.livroid = emp.livroid and
+                            emp.emprestimoid = dev.emprestimoid
+                      ORDER BY dev.devolucaoid          
+    ''')
+
+    result = cursor.fetchall()
+    print("=" * 197)
+    print("Relatório de Devoluções".center(197," "))
+    print("=" * 197)
+    print("|", "ID".center(8," "), "|", "Título".center(40," "), "|", "Autor".center(20," "), "|", "NOME".center(40," "), "|", "Data do empréstimo".center(20," "), "|", "Data da Devolução".center(20," "), "|", "Data entregue".center(13, " "), "|", "Multa". center(10, " "), "|")
+    for devolucao in result:
+        print("|", str(devolucao[0]).center(8," "), "|", str(devolucao[1]).center(40," "), "|", str(devolucao[2]).center(20," "), "|", str(devolucao[3]).center(40," "), "|", str(date.strftime(devolucao[4], '%d/%m/%Y')).center(20," "), "|", str(date.strftime(devolucao[5], '%d/%m/%Y')).center(20," "), "|", str(date.strftime(devolucao[6], '%d/%m/%Y')).center(13," "), "|", str('R$ ' + f'{devolucao[7]:.2f}'.replace('.', ',')).center(10," "), "|")
 
     cursor.close()
     conn.close()
