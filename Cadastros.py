@@ -11,7 +11,7 @@ def cadastrar_livro():
     livro = classe.Livro()
     
     banco = Conexao()
-      
+  
     query = "INSERT INTO livros (titulo, autor, isbn, pgs, quanttotal, quantdisponivel) VALUES ("
     query+= " '" + str(livro.get_titulo()) + "' , '" + str(livro.get_autor()) + "' , '" + str(livro.get_isbn()) + "' , '" + str(livro.get_pgs()) + "' , '" + str(livro.get_quant()) + "' , '" + str(livro.get_quant()) + "' )"
     banco.executar(query)

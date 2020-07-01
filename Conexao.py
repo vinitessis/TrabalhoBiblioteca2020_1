@@ -2,7 +2,7 @@ import mysql.connector
 
 class Conexao:
     def __init__(self):
-        self.__conn =  mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='', password = '')
+        self.__conn =  mysql.connector.connect(host = 'localhost', database = 'trab_finalap2', user ='root', password = '')
         self.__cursor = self.abrir()
     
     def abrir(self): 
