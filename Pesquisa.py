@@ -10,8 +10,8 @@ def pesquisa_livros(descricao):
     
     query = "SELECT livroid, titulo, autor, quantdisponivel FROM livros WHERE titulo like '%"
     query += str(descricao) + "%' or autor like '%"
-    query += str(descricao) + "%' or isbn like '% "
-    query += str(descricao) + "%'"
+    query += str(descricao) + "%' or isbn like '%"
+    query += descricao + "%'"
     result = banco.mostrar(query)
 
     if len(result) == 0:
@@ -104,4 +104,4 @@ def pesquisa_emprestimo(idlivro):
             dataEntrega.append(emprestimo[6])
         return emprestimosid, livrosid, dataEntrega
     else:
-        return [result[0][0]], [result[0][1]], [result[0][1]]
+        return [result[0][0]], [result[0][1]], [result[0][6]]

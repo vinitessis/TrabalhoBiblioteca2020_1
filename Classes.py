@@ -265,7 +265,7 @@ class Devolucao():
                     emprestimoid = emprestimosid[0]
                 if emprestimoid in emprestimosid:
                     indice = emprestimosid.index(emprestimoid)
-                    return emprestimoid, livrosid[indice], dataEntrega[indice]
+                return emprestimoid, livrosid[indice], dataEntrega[indice]
             else:
                 print("Livro não cadastrado!")
             try:
