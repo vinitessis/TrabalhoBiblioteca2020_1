@@ -1,6 +1,5 @@
 
 import Cadastros as cad
-import Excluir as exc
 import Listar as lis
 import Alterar as alt
 
@@ -12,16 +11,14 @@ while True:
     [0] - Finalizar
     [1] - Cadastrar Livro
     [2] - Alterar Livro
-    [3] - Excluir Livro
-    [4] - Cadastrar Cliente
-    [5] - Alterar Cliente
-    [6] - Excluir Cliente
-    [7] - Realizar Empréstimo
-    [8] - Realizar Devolução
-    [9] - Listar Livros
-    [10] - Listar Clientes
-    [11] - Listar Empréstimos
-    [12] - Listar Devoluções
+    [3] - Cadastrar Cliente
+    [4] - Alterar Cliente
+    [5] - Realizar Empréstimo
+    [6] - Realizar Devolução
+    [7] - Listar Livros
+    [8] - Listar Clientes
+    [9] - Listar Empréstimos
+    [10] - Listar Devoluções
     ========================================''')
     opcao = input('Escolha: ')
     if opcao == "0":
@@ -33,24 +30,20 @@ while True:
     elif opcao == "2":
         alt.alterar_livro()
     elif opcao == "3":
-        exc.excluir_livro()
-    elif opcao == "4":
         cad.cadastrar_cliente()
-    elif opcao == "5":
+    elif opcao == "4":
         alt.alterar_cliente()
-    elif opcao == "6":
-        exc.excluir_cliente()
-    elif opcao == "7":
+    elif opcao == "5":
         cad.emprestimo()
-    elif opcao == "8":
+    elif opcao == "6":
         cad.devolucao()
-    elif opcao == "9":
+    elif opcao == "7":
         lis.listar_livros()
-    elif opcao == "10":
+    elif opcao == "8":
         lis.listar_clientes()
-    elif opcao == "11":
+    elif opcao == "9":
         lis.listar_emprestimos()
-    elif opcao == "12":
+    elif opcao == "10":
         lis.listar_devolucoes()
     else:
         print("=" * 24)
